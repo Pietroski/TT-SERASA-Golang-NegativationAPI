@@ -19,6 +19,9 @@ reverse-migrations:
 sqlc:
 	$(SQLC) generate
 
-all: docker-container
+test:
+	go test -v -cover ./...
 
-# .PHONY: docker-container
+all: docker-container migrations test
+
+ .PHONY: docker-container migrations test
