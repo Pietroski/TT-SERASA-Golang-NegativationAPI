@@ -14,6 +14,25 @@ jobs:
     name: Test
     runs-on: ubuntu-20.04
 
+    services:
+      postgres:
+        image: postgres:13.3
+        # container_name: tt_serasa_postgres
+        env:
+          POSTGRES_DB: tt_serasa
+          POSTGRES_USER: serasa
+          POSTGRES_PASSWORD: serasa_psql
+        ports:
+          - 5432:5432
+        volumes:
+          - ./.db/data/postgres:/var/lib/postgresql/data
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+
     steps:
 
       - name: Setup Golang 1.16.4
@@ -24,6 +43,15 @@ jobs:
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
+
+      - name: install golang-migrate
+        run: |
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/migrate
+          which migrate
+
+      - name: Migrations
+        run: make migrations
 
       - name: Test
         run: make test
