@@ -2,9 +2,11 @@ name: TT-SERASA_GOLANG_NegativationAPI CI jobs
 
 on:
   push:
-    branches: *
+    branches:
+      - "*"
   pull_request:
-    branches: *
+    branches:
+      - "*"
 
 jobs:
 
