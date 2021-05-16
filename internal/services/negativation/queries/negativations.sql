@@ -1,23 +1,23 @@
 -- name: Negativate :one
-INSERT INTO negativations ("companyDocument",
-                           "companyName",
-                           "customerDocument",
+INSERT INTO negativations ("company_document",
+                           "company_name",
+                           "customer_document",
                            "value",
                            "contract",
-                           "debtDate",
-                           "inclusionDate")
+                           "debt_date",
+                           "inclusion_date")
 VALUES ($1, $2, $3, $4, $5, $6, $7)
 RETURNING *;
 
 -- name: UpdateNegativated :one
 UPDATE negativations
-SET "companyDocument"  = $2,
-    "companyName"      = $3,
-    "customerDocument" = $4,
+SET "company_document"  = $2,
+    "company_name"      = $3,
+    "customer_document" = $4,
     "value"            = $5,
     "contract"         = $6,
-    "debtDate"         = $7,
-    "inclusionDate"    = $8
+    "debt_date"         = $7,
+    "inclusion_date"    = $8
 WHERE id = $1
 RETURNING *;
 
