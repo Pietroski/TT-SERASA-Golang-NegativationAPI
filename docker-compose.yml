@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13.3
+    container_name: tt_serasa_postgres
+    environment:
+      - POSTGRES_DB=tt_serasa
+      - POSTGRES_USER=serasa
+      - POSTGRES_PASSWORD=serasa_psql
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db/data/postgres:/var/lib/postgresql/data
