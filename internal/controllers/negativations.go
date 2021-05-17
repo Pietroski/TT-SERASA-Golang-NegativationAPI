@@ -14,7 +14,7 @@ var (
 )
 
 type INegativationHandlers interface {
-	InitNegativationStore(store *negativations.Store)
+	InitNegativationStore(store negativations.Store)
 
 	Negativate(ctx *gin.Context)
 	GetNegativatedByID(ctx *gin.Context)
@@ -24,12 +24,12 @@ type INegativationHandlers interface {
 }
 
 type sNegativationHandlers struct {
-	Store *negativations.Store
+	Store negativations.Store
 }
 
 // InitNegativationStore should be called before any handler.
 // It will panic otherwise.
-func (handler *sNegativationHandlers) InitNegativationStore(store *negativations.Store) {
+func (handler *sNegativationHandlers) InitNegativationStore(store negativations.Store) {
 	handler.Store = store
 }
 

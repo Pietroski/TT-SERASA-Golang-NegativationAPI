@@ -11,17 +11,17 @@ var (
 )
 
 type iNegativationServer interface {
-	NewServer(store *negativations.Store) *sNegativationsServer
+	NewServer(store negativations.Store) *sNegativationsServer
 	Start(address string) error
 }
 
 type sNegativationsServer struct {
-	Store    *negativations.Store
+	Store    negativations.Store
 	Router   *gin.Engine
 	Handlers controllers.INegativationHandlers
 }
 
-func (ns *sNegativationsServer) NewServer(store *negativations.Store) *sNegativationsServer {
+func (ns *sNegativationsServer) NewServer(store negativations.Store) *sNegativationsServer {
 	server := &sNegativationsServer{
 		Store: store,
 		Handlers: controllers.NegativationHandlers,

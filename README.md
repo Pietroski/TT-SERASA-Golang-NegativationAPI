@@ -50,3 +50,14 @@ sqlc init
 ```shell
 sqlc generate
 ```
+
+### Viper commands
+
+### Gin-Gonic commands
+
+### go-mock commands
+
+- After installing and configuring it, to create a database mock for your project:
+```shell
+mockgen -package mock_negativation -destination internal/services/negativation/mock/store.go github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation Store
+```

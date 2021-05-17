@@ -47,6 +47,7 @@ type iRandData interface {
 	GenerateRandomContract() string
 	GenerateRandomDebt(min int, max int) float64
 	GenerateRandomDate() time.Time
+	GenerateRandomID(limit int64) int64
 
 	genRandFloatNum(min int, max int) float64
 	genRandNum(min int, max int) int
@@ -130,6 +131,11 @@ func (rd *sRandData) GenerateRandomContract() string {
 func (rd *sRandData) GenerateRandomDebt(min int, max int) float64 {
 	rfn := rd.genRandFloatNum(min, max)
 	return rfn
+}
+
+func (rd *sRandData) GenerateRandomID(limit int64) int64 {
+	min := int64(1)
+	return rand.Int63n(limit - min) + min
 }
 
 func (rd *sRandData) generateRandomString(length int, min int, max int) string {

@@ -19,6 +19,9 @@ reverse-migrations:
 sqlc:
 	$(SQLC) generate
 
+mock:
+	mockgen -package mock_negativation -destination internal/services/negativation/mock/store.go github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation Store
+
 test-database:
 	$(GO) test -v -cover ./internal/services/negativation/
 
