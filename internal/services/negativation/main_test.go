@@ -3,15 +3,11 @@ package negativations
 import (
 	"database/sql"
 	"fmt"
+	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/util"
 	"os"
 	"testing"
 
 	_ "github.com/lib/pq"
-)
-
-const (
-	dbDriver = "postgres"
-	dbDataSourceName = "postgresql://serasa:serasa_psql@localhost:5432/tt_serasa?sslmode=disable"
 )
 
 var (
@@ -21,7 +17,12 @@ var (
 func TestMain(m *testing.M) {
 	fmt.Println("Testing Database Connection on -> TestMain")
 
-	conn, err := sql.Open(dbDriver, dbDataSourceName)
+	config, err := util.Config.LoadConfig("../../../")
+	if err != nil {
+		panic(err)
+	}
+
+	conn, err := sql.Open(config.DBDriver, config.DBDataSourceName)
 	if err != nil {
 		panic(err)
 	}
@@ -29,4 +30,6 @@ func TestMain(m *testing.M) {
 	testQueries = New(conn)
 
 	os.Exit(m.Run())
+
+	fmt.Println()
 }

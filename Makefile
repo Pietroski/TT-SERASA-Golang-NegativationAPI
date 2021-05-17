@@ -19,9 +19,15 @@ reverse-migrations:
 sqlc:
 	$(SQLC) generate
 
+test-database:
+	$(GO) test -v -cover ./internal/services/negativation/
+
 test:
-	go test -v -cover ./...
+	$(GO) test -v -cover ./...
 
-all: docker-container migrations test
+run:
+	$(GO) run cmd/main.go
 
- .PHONY: docker-container migrations test
+all: docker-container migrations test run
+
+ .PHONY: docker-container migrations test-database test run
