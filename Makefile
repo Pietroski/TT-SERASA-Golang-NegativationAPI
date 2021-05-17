@@ -33,4 +33,4 @@ run:
 
 all: docker-container migrations test run
 
- .PHONY: docker-container migrations test-database test run
+ .PHONY: docker-container stop-docker-container migrations reverse-migrations sqlc mock test-database test run

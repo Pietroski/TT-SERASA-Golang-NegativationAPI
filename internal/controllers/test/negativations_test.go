@@ -6,12 +6,17 @@ import (
 	negativations "github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation"
 	mock_negativation "github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation/mock"
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/test/mock"
+	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
+
+func init() {
+	gin.SetMode(gin.ReleaseMode)
+}
 
 func RandomNegativationWithoutID() negativations.NegativateParams {
 	np := negativations.NegativateParams{
