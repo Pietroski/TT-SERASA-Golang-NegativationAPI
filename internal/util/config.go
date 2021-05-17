@@ -15,7 +15,7 @@ type iConfig interface {
 type sConfig struct {
 	DBDriver                    string `mapstructure:"DB_DRIVER"`
 	DBDataSourceName            string `mapstructure:"DB_DATA_SOURCE_NAME"`
-	NeggativationsServerAddress string `mapstructure:"Negativations_Server_Address"`
+	NeggativationsServerAddress string `mapstructure:"NEGATIVATIONS_SERVER_ADDRESS"`
 }
 
 // LoadConfig reads configuration from a file or environment variable.

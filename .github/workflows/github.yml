@@ -50,4 +50,8 @@ jobs:
         run: make migrations
 
       - name: Test
+        env:
+          DB_DRIVER: postgres
+          DB_DATA_SOURCE_NAME: postgresql://serasa:serasa_psql@localhost:5432/tt_serasa?sslmode=disable
+          NEGATIVATIONS_SERVER_ADDRESS: localhost:8008
         run: make test

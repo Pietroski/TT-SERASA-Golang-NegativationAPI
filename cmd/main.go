@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/factories"
 	negativations "github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation"
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/util"
@@ -18,7 +19,7 @@ import (
 func main() {
 	config, err := util.Config.LoadConfig(".")
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 
 	dbConn, err := sql.Open(config.DBDriver, config.DBDataSourceName)

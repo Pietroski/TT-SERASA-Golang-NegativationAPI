@@ -19,17 +19,17 @@ func TestMain(m *testing.M) {
 
 	config, err := util.Config.LoadConfig("../../../")
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 
 	conn, err := sql.Open(config.DBDriver, config.DBDataSourceName)
 	if err != nil {
 		panic(err)
+		panic(err)
 	}
 
 	testQueries = New(conn)
 
-	os.Exit(m.Run())
-
 	fmt.Println()
+	os.Exit(m.Run())
 }
