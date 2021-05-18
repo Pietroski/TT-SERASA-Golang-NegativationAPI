@@ -29,13 +29,15 @@ func (ns *sNegativationsServer) NewServer(store negativations.Store) *sNegativat
 	controllers.NegativationHandlers.InitNegativationStore(store)
 
 	router := gin.New()
-	v1 := router.Group("/v2")
+	v2 := router.Group("/v2")
 
-	v1.POST("/negativate", server.Handlers.Negativate)
-	v1.GET("/negativated/:id", server.Handlers.GetNegativatedByID)
-	v1.GET("/list-negativated", server.Handlers.ListNegativated)
-	v1.DELETE("/delete-negativated/:id", server.Handlers.DeleteNegativated)
-	v1.PUT("/update-negativated", server.Handlers.UpdateNegativated)
+	v2.GET("/ping", controllers.Check.Ping)
+
+	v2.POST("/negativate", server.Handlers.Negativate)
+	v2.GET("/negativated/:id", server.Handlers.GetNegativatedByID)
+	v2.GET("/list-negativated", server.Handlers.ListNegativated)
+	v2.DELETE("/delete-negativated/:id", server.Handlers.DeleteNegativated)
+	v2.PUT("/update-negativated", server.Handlers.UpdateNegativated)
 
 	server.Router = router
 	return server

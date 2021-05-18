@@ -3,23 +3,24 @@ package util
 import "github.com/spf13/viper"
 
 var (
-	Config iConfig = &sConfig{}
+	Config iConfig = &SConfig{}
 )
 
 type iConfig interface {
-	LoadConfig(path string) (config sConfig, err error)
+	LoadConfig(path string) (config SConfig, err error)
 }
 
-// sConfig stores all the application's configurations variables.
+// SConfig stores all the application's configurations variables.
 // The values are read by viper from a config file or environment variables.
-type sConfig struct {
-	DBDriver                    string `mapstructure:"DB_DRIVER"`
-	DBDataSourceName            string `mapstructure:"DB_DATA_SOURCE_NAME"`
-	NeggativationsServerAddress string `mapstructure:"NEGATIVATIONS_SERVER_ADDRESS"`
+type SConfig struct {
+	DBDriver                   string `mapstructure:"DB_DRIVER"`
+	DBDataSourceName           string `mapstructure:"DB_DATA_SOURCE_NAME"`
+	NegativationsServerAddress string `mapstructure:"NEGATIVATIONS_SERVER_ADDRESS"`
+	LegacyServerAddress        string `mapstructure:"LEGACY_SERVER_ADDRESS"`
 }
 
 // LoadConfig reads configuration from a file or environment variable.
-func (c *sConfig) LoadConfig(path string) (config sConfig, err error) {
+func (c *SConfig) LoadConfig(path string) (config SConfig, err error) {
 	viper.AddConfigPath(path)
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")
