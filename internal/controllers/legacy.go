@@ -7,6 +7,8 @@ import (
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/util/notification"
 	"github.com/gin-gonic/gin"
 	"net/http"
+
+	_ "github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation"
 )
 
 var (
@@ -32,6 +34,19 @@ func init() {
 	}
 }
 
+// GetNegativatedByID godoc
+// @Summary DEPRECATED
+// @Description get negativated by ID
+// @ID deprecated-get-negativated-by-id
+// @Produce  json
+// @Param id path int true "Negativation ID"
+// @Success 200 {object} negativations.Negativations
+// @Failure 400,404 {object} ErrorStruct
+// @Failure 500,503 {object} ErrorStruct
+// @Failure default {object} ErrorStruct
+// @host localhost:8009
+// @BasePath /v1-legacy
+// @Router /negativated/{id} [get]
 func (handler *sLegacyHandlers) GetNegativatedByID(ctx *gin.Context) {
 	var req getNegativatedByIDRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -46,6 +61,18 @@ func (handler *sLegacyHandlers) GetNegativatedByID(ctx *gin.Context) {
 	handler.emitLegacyResponse(ctx, resp)
 }
 
+// ListNegativated godoc
+// @Summary DEPRECATED
+// @Description list negativated
+// @ID deprecated-list-negativated
+// @Produce  json
+// @Success 200 {slice} negativations.Negativations
+// @Failure 400,404 {object} ErrorStruct
+// @Failure 500,503 {object} ErrorStruct
+// @Failure default {object} ErrorStruct
+// @host localhost:8009
+// @BasePath /v1-legacy
+// @Router /list-negativated [get]
 func (handler *sLegacyHandlers) ListNegativated(ctx *gin.Context) {
 	var req listNegativated
 	if err := ctx.ShouldBindQuery(&req); err != nil {

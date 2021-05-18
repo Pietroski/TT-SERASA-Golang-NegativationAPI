@@ -6,6 +6,7 @@ import (
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/factories"
 	negativations "github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation"
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/util"
+	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
@@ -19,6 +20,8 @@ import (
 // 			- 69, 94, 119, 154 and 191
 // - implement authentication middleware
 // - implement .env on legacy api controller client-server
+// - swagger variables and names should be created dynamically with .env variables
+// - improve swagger parameter description
 
 func main() {
 	config, err := util.Config.LoadConfig(".")
@@ -30,6 +33,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	swagger := factories.Swagger.Generate()
+	go func(eng *gin.Engine) {
+		// TODO: .env variable for this path address
+		eng.Run("localhost:8010")
+	}(swagger)
 
 	legacyProxy := factories.LegacyProxy.NewLegacyServer()
 	go func(legacyProxy *factories.SLegacyServer, address string) {
