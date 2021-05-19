@@ -54,7 +54,7 @@ type negativateRequest struct {
 // @Failure default {object} ErrorStruct
 // @host localhost:8008
 // @BasePath /v2
-// @Router /negativate [post]
+// @Router /negativated [post]
 func (handler *sNegativationHandlers) Negativate(ctx *gin.Context) {
 	var req negativateRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -133,7 +133,7 @@ type listNegativated struct {
 // @Failure default {object} ErrorStruct
 // @host localhost:8008
 // @BasePath /v2
-// @Router /list-negativated/ [get]
+// @Router /negativated [get]
 func (handler *sNegativationHandlers) ListNegativated(ctx *gin.Context) {
 	var req listNegativated
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -174,7 +174,7 @@ type deleteNegativated struct {
 // @Failure default {object} ErrorStruct
 // @host localhost:8008
 // @BasePath /v2
-// @Router /delete-negativated/{id} [delete]
+// @Router /negativated/{id} [delete]
 func (handler *sNegativationHandlers) DeleteNegativated(ctx *gin.Context) {
 	var req deleteNegativated
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -223,7 +223,7 @@ type updateNegativated struct {
 // @Failure default {object} ErrorStruct
 // @host localhost:8008
 // @BasePath /v2
-// @Router /update-negativate [put]
+// @Router /negativated [put]
 func (handler *sNegativationHandlers) UpdateNegativated(ctx *gin.Context) {
 	var req updateNegativated
 	if err := ctx.ShouldBindJSON(&req); err != nil {

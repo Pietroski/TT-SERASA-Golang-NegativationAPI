@@ -5,11 +5,31 @@ MIGRATE=migrate
 SQLC=sqlc
 SWAG=swag
 
-docker-container:
+SUDO=sudo
+
+docker-build:
+	docker build -t pietroski/tt_serasa_golang_server .
+
+build-docker-containers:
+	$(DOCKER_COMPOSE) up -d --build
+
+build-docker-containers-with-logs:
+	$(DOCKER_COMPOSE) up --build
+
+docker-containers:
 	$(DOCKER_COMPOSE) up -d
 
-stop-docker-container:
+docker-containers-with-logs:
+	$(DOCKER_COMPOSE) up
+
+stop-docker-containers:
 	$(DOCKER_COMPOSE) down
+
+remove-docker-containers:
+	$(DOCKER) rm tt_serasa_golang_server tt_serasa_postgres
+
+clean-local-db:
+	$(SUDO) rm -rf .db
 
 migrations:
 	$(MIGRATE) -path internal/datastore/postgreSQL/migrations -database "postgresql://serasa:serasa_psql@localhost:5432/tt_serasa?sslmode=disable" -verbose up
@@ -35,6 +55,6 @@ test:
 run:
 	$(GO) run cmd/main.go
 
-all: docker-container migrations test swagger run
+all: docker-containers migrations test swagger run
 
- .PHONY: docker-container stop-docker-container migrations reverse-migrations sqlc mock test-database test swagger run
+.PHONY: docker-build build-docker-containers build-docker-containers-with-logs docker-containers docker-containers-with-logs stop-docker-containers remove-docker-containers clean-local-db migrations reverse-migrations sqlc mock test-database test swagger run

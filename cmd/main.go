@@ -8,6 +8,7 @@ import (
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/util"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"os"
 )
 
 // TODO:
@@ -22,12 +23,16 @@ import (
 // - implement .env on legacy api controller client-server
 // - swagger variables and names should be created dynamically with .env variables
 // - improve swagger parameter description
+// - fix application dockerization
 
 func main() {
+	fmt.Println("HERE ->", os.Getenv("DB_DRIVER"))
 	config, err := util.Config.LoadConfig(".")
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	fmt.Println("HERE ->", config.DBDriver, config.DBDataSourceName)
 
 	dbConn, err := sql.Open(config.DBDriver, config.DBDataSourceName)
 	if err != nil {

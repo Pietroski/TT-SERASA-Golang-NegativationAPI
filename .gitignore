@@ -13,6 +13,8 @@
 
 # Local backup files
 go.mod.bak
+Dockerfile
+Dockerfile.bak.bak
 
 # Binaries for programs and plugins
 *.exe

@@ -33,38 +33,6 @@ definitions:
 info:
   contact: {}
 paths:
-  /delete-negativated/{id}:
-    delete:
-      description: deletes a negativated by its id
-      operationId: delete-negativated-by-id
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: slice
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        "404":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        "503":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        default:
-          description: ""
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-      summary: Deletes a negativated
   /list-negativated:
     get:
       description: list negativated
@@ -97,7 +65,7 @@ paths:
           schema:
             $ref: '#/definitions/controllers.ErrorStruct'
       summary: DEPRECATED
-  /list-negativated/:
+  /negativated:
     get:
       description: lists negativated amounts
       operationId: list-negativated
@@ -129,7 +97,6 @@ paths:
           schema:
             $ref: '#/definitions/controllers.ErrorStruct'
       summary: Lists negativated
-  /negativate:
     post:
       description: creates a negativated client
       operationId: negativate
@@ -161,7 +128,69 @@ paths:
           schema:
             $ref: '#/definitions/controllers.ErrorStruct'
       summary: Negativation Creation
+    put:
+      description: updates a negativated client
+      operationId: update-negativated
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: slice
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        "503":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+      summary: Updates negativation
   /negativated/{id}:
+    delete:
+      description: deletes a negativated by its id
+      operationId: delete-negativated-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: slice
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        "503":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.ErrorStruct'
+      summary: Deletes a negativated
     get:
       description: gets a negativated by its id
       operationId: get-negativated-by-id
@@ -209,36 +238,4 @@ paths:
           schema:
             $ref: '#/definitions/controllers.ErrorStruct'
       summary: Health check
-  /update-negativate:
-    put:
-      description: updates a negativated client
-      operationId: update-negativated
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: slice
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        "404":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        "503":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-        default:
-          description: ""
-          schema:
-            $ref: '#/definitions/controllers.ErrorStruct'
-      summary: Updates negativation
 swagger: "2.0"
