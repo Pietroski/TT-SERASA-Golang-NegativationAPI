@@ -29,3 +29,11 @@ make all
 - Espero que gostem mas vou entender também caso não gostem.
 - O prazo era de 7 dias e foi isso o que eu consegui fazer; começei a montagem dessa API domingo a noite em decorrência de outros testes e atividades.
 - Pude trabalhar nela apenas no Domingo(como já comentado), segunda e terça a noite. No total foram aproximadamente 8-12 horas de trabalho.
+
+- Sobre as escolhas das libs, obviamente foram feitas para tentar manter o zen do Go; descomplicada compilação, descomplicada execução e programação.
+- A maioria das bibliotecas escolhidas foi escolhida por manter performance e type-checking. Para mais informações basta apenas me perguntar.
+
+- Se eu não esqueci de nenhum detalhe basta só me perguntar, vou adorar responder, mesmo que eu não saiba de algo.
+- Caso eu não saiba, vou procurar ir atrás da infomrção; de qualquer modo vai valer o aprendizado.
+
+- Grato e tenham todos uma ótima semana!!
