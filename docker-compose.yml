@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   db:
@@ -12,3 +12,15 @@ services:
       - 5432:5432
     volumes:
       - ./.db/data/postgres:/var/lib/postgresql/data
+#  server:
+#    container_name: tt_serasa_golang_server
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    env_file: .env
+#    depends_on:
+#      - db
+#    ports:
+#      - 8008:8008
+#      - 8009:8009
+#      - 8010:8010

@@ -24,54 +24,6 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/delete-negativated/{id}": {
-            "delete": {
-                "description": "deletes a negativated by its id",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Deletes a negativated",
-                "operationId": "delete-negativated-by-id",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "slice"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorStruct"
-                        }
-                    },
-                    "404": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorStruct"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorStruct"
-                        }
-                    },
-                    "503": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorStruct"
-                        }
-                    },
-                    "default": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorStruct"
-                        }
-                    }
-                }
-            }
-        },
         "/list-negativated": {
             "get": {
                 "description": "list negativated",
@@ -120,7 +72,7 @@ var doc = `{
                 }
             }
         },
-        "/list-negativated/": {
+        "/negativated": {
             "get": {
                 "description": "lists negativated amounts",
                 "produces": [
@@ -166,9 +118,53 @@ var doc = `{
                         }
                     }
                 }
-            }
-        },
-        "/negativate": {
+            },
+            "put": {
+                "description": "updates a negativated client",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Updates negativation",
+                "operationId": "update-negativated",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "slice"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorStruct"
+                        }
+                    },
+                    "404": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorStruct"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorStruct"
+                        }
+                    },
+                    "503": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorStruct"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorStruct"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "creates a negativated client",
                 "produces": [
@@ -262,40 +258,14 @@ var doc = `{
                         }
                     }
                 }
-            }
-        },
-        "/ping": {
-            "get": {
-                "description": "checks server health",
+            },
+            "delete": {
+                "description": "deletes a negativated by its id",
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Health check",
-                "operationId": "ping",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.SuccessfulPing"
-                        }
-                    },
-                    "default": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorStruct"
-                        }
-                    }
-                }
-            }
-        },
-        "/update-negativate": {
-            "put": {
-                "description": "updates a negativated client",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Updates negativation",
-                "operationId": "update-negativated",
+                "summary": "Deletes a negativated",
+                "operationId": "delete-negativated-by-id",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -325,6 +295,30 @@ var doc = `{
                         "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/controllers.ErrorStruct"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorStruct"
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "checks server health",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Health check",
+                "operationId": "ping",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.SuccessfulPing"
                         }
                     },
                     "default": {

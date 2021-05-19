@@ -1,0 +1,31 @@
+## Considerações finais
+
+- No início do arquivo cmd/main.go tem alguns TODOS que eu gostaria ter implementado mas que não consegui por falta de tempo.
+- Apesar de relativamente simples esse test for relativamente longo e apresenta bastante detalhezinhos.
+- Espero que pelo menos sirva como amostra.
+
+- Apesar de eu não ter conseguido fazer funcionar a aplicação no docker junto ao container do postgres os arquivos ficarão aí para mostrar a tentativa.
+- Por ter gastado um bom tempo tentando corrigir a imagem do docker, não consegui terminar de introduzir os inputs dos endpoints no Swagger e por isso fiz uns aquivos de consulta em ./demo.
+
+- Para rodar a aplicação com o banco de dados já "migracionado", basta apenas rodar
+```shell
+make all
+```
+
+- Para rodar algum comando específico basta apenas consultar o arquivo Makefile.
+
+- Senti que teve bastante tasks de devops nesse teste técnico.
+- Fiz uma boa bateria de testes unitários porém não consegui terminar de corrigir os testes de mock.
+- Os testes de banco de dados estão passando inclusive nas pipelines do github actions.
+
+- Para rodar a aplicação legada basta apenas seguir a documentação do repositório dela.
+  https://github.com/Pietroski/TT-SERASA-NodeJS-LegacyNegativationAPI
+
+- Eu sei que no teste pedia para que não fosse mergeado o request porém eu decidi fazê-lo para garantir que eu não perdesse algumas coisas.
+- Inclusive, para que vocês pudessem ler esse README.md
+- Eu sei que tem milhares de outras formas diferentes e mais fácil de se executar isso, mas decidi que no final fosse tudo "mergeado".
+
+- Enfim, ficaram alguns detalhezinhos mas como o tempo está curto no momento foi o que eu consegui entregar em muito pouco tempo de mão na massa.
+- Espero que gostem mas vou entender também caso não gostem.
+- O prazo era de 7 dias e foi isso o que eu consegui fazer; começei a montagem dessa API domingo a noite em decorrência de outros testes e atividades.
+- Pude trabalhar nela apenas no Domingo(como já comentado), segunda e terça a noite. No total foram aproximadamente 8-12 horas de trabalho.

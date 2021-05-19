@@ -1,6 +1,9 @@
 package util
 
-import "github.com/spf13/viper"
+import (
+	"fmt"
+	"github.com/spf13/viper"
+)
 
 var (
 	Config iConfig = &SConfig{}
@@ -29,7 +32,17 @@ func (c *SConfig) LoadConfig(path string) (config SConfig, err error) {
 
 	err = viper.ReadInConfig()
 	if err != nil {
-		return
+		fmt.Println(err)
+
+		// This block of code was introduced due to docker
+		// Viper was unable to Automatically read from env somehow.
+		// TODO: remove this piece of code
+		viper.SetDefault("DB_DRIVER", "postgres")
+		viper.SetDefault("DB_DATA_SOURCE_NAME", "postgresql://serasa:serasa_psql@localhost:5432/tt_serasa?sslmode=disable")
+		viper.SetDefault("NEGATIVATIONS_SERVER_ADDRESS", "localhost:8008")
+		viper.SetDefault("LEGACY_SERVER_ADDRESS", "localhost:8009")
+
+		//return
 	}
 
 	err = viper.Unmarshal(&config)
