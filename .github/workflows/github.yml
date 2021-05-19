@@ -1,0 +1,58 @@
+name: TT-SERASA_GOLANG_NegativationAPI CI jobs
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+
+    services:
+      postgres:
+        image: postgres:13.3
+        env:
+          POSTGRES_DB: tt_serasa
+          POSTGRES_USER: serasa
+          POSTGRES_PASSWORD: serasa_psql
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+
+      - name: Setup Golang 1.16.4
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.16.4
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: install golang-migrate
+        run: |
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/migrate
+          which migrate
+
+      - name: Migrations
+        run: make migrations
+
+      - name: Test
+        env:
+          DB_DRIVER: postgres
+          DB_DATA_SOURCE_NAME: postgresql://serasa:serasa_psql@localhost:5432/tt_serasa?sslmode=disable
+          NEGATIVATIONS_SERVER_ADDRESS: localhost:8008
+          LEGACY_SERVER_ADDRESS: localhost:8009
+        run: make test

@@ -3,6 +3,7 @@ DOCKER=docker
 DOCKER_COMPOSE=docker-compose
 MIGRATE=migrate
 SQLC=sqlc
+SWAG=swag
 
 docker-container:
 	$(DOCKER_COMPOSE) up -d
@@ -19,6 +20,21 @@ reverse-migrations:
 sqlc:
 	$(SQLC) generate
 
-all: docker-container
+mock:
+	mockgen -package mock_negativation -destination internal/services/negativation/mock/store.go github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation Store
 
-# .PHONY: docker-container
+swagger:
+	$(SWAG) init -g cmd/main.go
+
+test-database:
+	$(GO) test -v -cover ./internal/services/negativation/
+
+test:
+	$(GO) test -v -cover ./...
+
+run:
+	$(GO) run cmd/main.go
+
+all: docker-container migrations test swagger run
+
+ .PHONY: docker-container stop-docker-container migrations reverse-migrations sqlc mock test-database test swagger run

@@ -19,7 +19,7 @@ func (q *Queries) DeleteNegativated(ctx context.Context, id int64) error {
 }
 
 const getNegativatedByID = `-- name: GetNegativatedByID :one
-SELECT id, companyDocument, companyName, customerDocument, value, contract, debtDate, inclusionDate FROM "negativations"
+SELECT id, company_document, company_name, customer_document, value, contract, debt_date, inclusion_date FROM "negativations"
 WHERE "id" = $1
 LIMIT 1
 `
@@ -41,7 +41,7 @@ func (q *Queries) GetNegativatedByID(ctx context.Context, id int64) (Negativatio
 }
 
 const listNegativated = `-- name: ListNegativated :many
-SELECT id, companyDocument, companyName, customerDocument, value, contract, debtDate, inclusionDate FROM negativations
+SELECT id, company_document, company_name, customer_document, value, contract, debt_date, inclusion_date FROM negativations
 ORDER BY "id"
 LIMIT $1
 OFFSET $2
@@ -85,15 +85,15 @@ func (q *Queries) ListNegativated(ctx context.Context, arg ListNegativatedParams
 }
 
 const negativate = `-- name: Negativate :one
-INSERT INTO negativations ("companyDocument",
-                           "companyName",
-                           "customerDocument",
+INSERT INTO negativations ("company_document",
+                           "company_name",
+                           "customer_document",
                            "value",
                            "contract",
-                           "debtDate",
-                           "inclusionDate")
+                           "debt_date",
+                           "inclusion_date")
 VALUES ($1, $2, $3, $4, $5, $6, $7)
-RETURNING id, companyDocument, companyName, customerDocument, value, contract, debtDate, inclusionDate
+RETURNING id, company_document, company_name, customer_document, value, contract, debt_date, inclusion_date
 `
 
 type NegativateParams struct {
@@ -132,15 +132,15 @@ func (q *Queries) Negativate(ctx context.Context, arg NegativateParams) (Negativ
 
 const updateNegativated = `-- name: UpdateNegativated :one
 UPDATE negativations
-SET "companyDocument"  = $2,
-    "companyName"      = $3,
-    "customerDocument" = $4,
+SET "company_document"  = $2,
+    "company_name"      = $3,
+    "customer_document" = $4,
     "value"            = $5,
     "contract"         = $6,
-    "debtDate"         = $7,
-    "inclusionDate"    = $8
+    "debt_date"         = $7,
+    "inclusion_date"    = $8
 WHERE id = $1
-RETURNING id, companyDocument, companyName, customerDocument, value, contract, debtDate, inclusionDate
+RETURNING id, company_document, company_name, customer_document, value, contract, debt_date, inclusion_date
 `
 
 type UpdateNegativatedParams struct {
