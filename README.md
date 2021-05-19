@@ -35,6 +35,8 @@ make all
 - Sobre as escolhas das libs, obviamente foram feitas para tentar manter o zen do Go; descomplicada compilação, descomplicada execução e programação. 
 - A maioria das bibliotecas escolhidas foi escolhida por manter performance e type-checking. Para mais informações basta apenas me perguntar.
 
+- A arquitetura que eu tento aplicar em meus projeto de go é baseada nesse cara -> https://github.com/golang-standards/project-layout e internamente sempre tempo ainda seguir os princípios de SOLID e Clean Architecture, vide ./test/mock(além de todo o restante do projeto) por exemplo.
+
 - Se eu não esqueci de nenhum detalhe basta só me perguntar, vou adorar responder, mesmo que eu não saiba de algo. 
 - Caso eu não saiba, vou procurar ir atrás da infomrção; de qualquer modo vai valer o aprendizado.
 
