@@ -98,6 +98,8 @@ paths:
             $ref: '#/definitions/controllers.ErrorStruct'
       summary: Lists negativated
     post:
+      consumes:
+      - application/json
       description: creates a negativated client
       operationId: negativate
       produces:
@@ -192,15 +194,21 @@ paths:
             $ref: '#/definitions/controllers.ErrorStruct'
       summary: Deletes a negativated
     get:
-      description: gets a negativated by its id
-      operationId: get-negativated-by-id
+      description: get negativated by ID
+      operationId: deprecated-get-negativated-by-id
+      parameters:
+      - description: Negativation ID
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            type: slice
+            $ref: '#/definitions/negativations.Negativations'
         "400":
           description: Bad Request
           schema:
@@ -221,7 +229,7 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/controllers.ErrorStruct'
-      summary: Gets a negativated
+      summary: DEPRECATED
   /ping:
     get:
       description: checks server health

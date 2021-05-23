@@ -167,6 +167,9 @@ var doc = `{
             },
             "post": {
                 "description": "creates a negativated client",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -214,17 +217,26 @@ var doc = `{
         },
         "/negativated/{id}": {
             "get": {
-                "description": "gets a negativated by its id",
+                "description": "get negativated by ID",
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Gets a negativated",
-                "operationId": "get-negativated-by-id",
+                "summary": "DEPRECATED",
+                "operationId": "deprecated-get-negativated-by-id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Negativation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "slice"
+                            "$ref": "#/definitions/negativations.Negativations"
                         }
                     },
                     "400": {

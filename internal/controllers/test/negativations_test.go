@@ -157,7 +157,7 @@ func TestUpdateNegativated(t *testing.T) {
 		CompanyDocument:  rn.CompanyDocument,
 		CompanyName:      rn.CompanyName,
 		CustomerDocument: rn.CustomerDocument,
-		Value:            mock.RandomData.GenerateRandomDebt(0, 5_000),
+		Value:            rnp.Value,
 		Contract:         rn.Contract,
 		DebtDate:         rn.DebtDate,
 		InclusionDate:    rn.InclusionDate,

@@ -47,7 +47,9 @@ type negativateRequest struct {
 // @Summary Negativation Creation
 // @Description creates a negativated client
 // @ID negativate
+// @Accept  json
 // @Produce  json
+// @Params
 // @Success 200 {slice} negativations.Negativations
 // @Failure 400,404 {object} ErrorStruct
 // @Failure 500,503 {object} ErrorStruct
@@ -90,6 +92,7 @@ type getNegativatedByIDRequest struct {
 // @Description gets a negativated by its id
 // @ID get-negativated-by-id
 // @Produce  json
+// @Param id path int true "Account ID"
 // @Success 200 {slice} negativations.Negativations
 // @Failure 400,404 {object} ErrorStruct
 // @Failure 500,503 {object} ErrorStruct
