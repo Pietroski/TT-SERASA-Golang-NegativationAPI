@@ -4,7 +4,7 @@ curl --request GET \
   --url http://localhost:8008/v2/ping
 
 curl --request POST \
-  --url http://localhost:8008/v2/negativate \
+  --url http://localhost:8008/v2/negativated \
   --header 'Content-Type: application/json' \
   --data '{
 	"companyDocument": "59291534043167",
