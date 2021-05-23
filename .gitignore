@@ -13,7 +13,7 @@
 
 # Local backup files
 go.mod.bak
-Dockerfile
+#Dockerfile
 Dockerfile.bak.bak
 
 # Binaries for programs and plugins
