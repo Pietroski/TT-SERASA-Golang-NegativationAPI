@@ -1,6 +1,8 @@
 package test
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/factories"
 	negativations "github.com/Pietroski/TT-SERASA-Golang-NegativationAPI/internal/services/negativation"
@@ -48,17 +50,17 @@ func CreateRandomNegativation() negativations.Negativations {
 }
 
 func TestNegativate(t *testing.T) {
-	//rn := RandomNegativationWithoutID()
-	//nrn := negativations.Negativations{
-	//	ID:               1,
-	//	CompanyDocument:  rn.CompanyDocument,
-	//	CompanyName:      rn.CompanyName,
-	//	CustomerDocument: rn.CustomerDocument,
-	//	Value:            rn.Value,
-	//	Contract:         rn.Contract,
-	//	DebtDate:         rn.DebtDate,
-	//	InclusionDate:    rn.InclusionDate,
-	//}
+	rn := RandomNegativationWithoutID()
+	nrn := negativations.Negativations{
+		ID:               1,
+		CompanyDocument:  rn.CompanyDocument,
+		CompanyName:      rn.CompanyName,
+		CustomerDocument: rn.CustomerDocument,
+		Value:            rn.Value,
+		Contract:         rn.Contract,
+		DebtDate:         rn.DebtDate,
+		InclusionDate:    rn.InclusionDate,
+	}
 
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -66,20 +68,22 @@ func TestNegativate(t *testing.T) {
 	store := mock_negativation.NewMockStore(ctrl)
 
 	// build stubs
-	//store.EXPECT().Negativate(gomock.Any(), rn).Times(1).Return(nrn, nil)
+	store.EXPECT().Negativate(gomock.Any(), gomock.Eq(rn)).Times(1).Return(nrn, nil)
 
 	// start test server and send request
 	server := factories.Negativations.NewServer(store)
 	recorder := httptest.NewRecorder()
 
-	url := fmt.Sprintf("/v2/negativate")
-	req, err := http.NewRequest(http.MethodPost, url, nil)
+	postReq, err := json.Marshal(rn)
+	require.NoError(t, err)
+	url := fmt.Sprintf("/v2/negativated")
+	req, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(postReq))
 	require.NoError(t, err)
 
 	server.Router.ServeHTTP(recorder, req)
 
 	// check response
-	//require.Equal(t, http.StatusCreated, recorder.Code)
+	require.Equal(t, http.StatusCreated, recorder.Code)
 }
 
 func TestGetNegativatedByID(t *testing.T) {
@@ -91,20 +95,24 @@ func TestGetNegativatedByID(t *testing.T) {
 	store := mock_negativation.NewMockStore(ctrl)
 
 	// build stubs
-	//store.EXPECT().GetNegativatedByID(gomock.Any(), gomock.Eq(rn.ID)).Times(1).Return(rn, nil)
+	store.
+		EXPECT().
+		GetNegativatedByID(gomock.Any(), gomock.Eq(rn.ID)).
+		Times(1).
+		Return(rn, nil)
 
 	// start test server and send request
 	server := factories.Negativations.NewServer(store)
 	recorder := httptest.NewRecorder()
 
-	url := fmt.Sprintf("/negativated/%d", rn.ID)
-	req, err := http.NewRequest(http.MethodPost, url, nil)
+	url := fmt.Sprintf("/v2/negativated/%d", rn.ID)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	require.NoError(t, err)
 
 	server.Router.ServeHTTP(recorder, req)
 
 	// check response
-	//require.Equal(t, http.StatusOK, recorder.Code)
+	require.Equal(t, http.StatusOK, recorder.Code)
 }
 
 func TestDeleteNegativated(t *testing.T) {
@@ -116,34 +124,44 @@ func TestDeleteNegativated(t *testing.T) {
 	store := mock_negativation.NewMockStore(ctrl)
 
 	// build stubs
-	//store.EXPECT().DeleteNegativated(gomock.Any(), gomock.Eq(rn.ID)).Times(1).Return(nil)
+	store.EXPECT().DeleteNegativated(gomock.Any(), gomock.Eq(rn.ID)).Times(1).Return(nil)
 
 	// start test server and send request
 	server := factories.Negativations.NewServer(store)
 	recorder := httptest.NewRecorder()
 
-	url := fmt.Sprintf("/delete-negativated/%d", rn.ID)
+	url := fmt.Sprintf("/v2/negativated/%d", rn.ID)
 	req, err := http.NewRequest(http.MethodDelete, url, nil)
 	require.NoError(t, err)
 
 	server.Router.ServeHTTP(recorder, req)
 
 	// check response
-	//require.Equal(t, http.StatusOK, recorder.Code)
+	require.Equal(t, http.StatusOK, recorder.Code)
 }
 
 func TestUpdateNegativated(t *testing.T) {
-	//rn := RandomNegativationWithoutID()
-	//nrn := negativations.Negativations{
-	//	ID:               1,
-	//	CompanyDocument:  rn.CompanyDocument,
-	//	CompanyName:      rn.CompanyName,
-	//	CustomerDocument: rn.CustomerDocument,
-	//	Value:            rn.Value,
-	//	Contract:         rn.Contract,
-	//	DebtDate:         rn.DebtDate,
-	//	InclusionDate:    rn.InclusionDate,
-	//}
+	rn := CreateRandomNegativation()
+	rnp := negativations.UpdateNegativatedParams{
+		ID:               rn.ID,
+		CompanyDocument:  rn.CompanyDocument,
+		CompanyName:      rn.CompanyName,
+		CustomerDocument: rn.CustomerDocument,
+		Value:            mock.RandomData.GenerateRandomDebt(0, 5_000),
+		Contract:         rn.Contract,
+		DebtDate:         rn.DebtDate,
+		InclusionDate:    rn.InclusionDate,
+	}
+	rnr := negativations.Negativations{
+		ID:               rn.ID,
+		CompanyDocument:  rn.CompanyDocument,
+		CompanyName:      rn.CompanyName,
+		CustomerDocument: rn.CustomerDocument,
+		Value:            mock.RandomData.GenerateRandomDebt(0, 5_000),
+		Contract:         rn.Contract,
+		DebtDate:         rn.DebtDate,
+		InclusionDate:    rn.InclusionDate,
+	}
 
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -151,36 +169,38 @@ func TestUpdateNegativated(t *testing.T) {
 	store := mock_negativation.NewMockStore(ctrl)
 
 	// build stubs
-	//store.EXPECT().UpdateNegativated(gomock.Any(), rn.ID).Times(1).Return(nrn, nil)
+	store.EXPECT().UpdateNegativated(gomock.Any(), gomock.Eq(rnp)).Times(1).Return(rnr, nil)
 
 	// start test server and send request
 	server := factories.Negativations.NewServer(store)
 	recorder := httptest.NewRecorder()
 
-	url := fmt.Sprintf("/v2/update-negativated")
-	req, err := http.NewRequest(http.MethodPut, url, nil)
+	putReq, err := json.Marshal(rnp)
+	require.NoError(t, err)
+	url := fmt.Sprintf("/v2/negativated")
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(putReq))
 	require.NoError(t, err)
 
 	server.Router.ServeHTTP(recorder, req)
 
 	// check response
-	//require.Equal(t, http.StatusCreated, recorder.Code)
+	require.Equal(t, http.StatusCreated, recorder.Code)
 }
 
 func TestListNegativated(t *testing.T) {
-	length := 5
+	pageID := int32(1)
+	pageSize := int32(5)
 
-	//rn := negativations.ListNegativatedParams{
-	//	Limit:  int32(length),
-	//	Offset: 1,
-	//}
-
-	rnList := make([]negativations.Negativations, length)
-
-	for i := 0; i < length; i++ {
-		rnList[i] = CreateRandomNegativation()
+	rn := negativations.ListNegativatedParams{
+		Limit:  pageSize,
+		Offset: (pageID - 1) * pageSize,
 	}
 
+	rnList := make([]negativations.Negativations, pageSize)
+
+	for i := 0; i < int(pageSize); i++ {
+		rnList[i] = CreateRandomNegativation()
+	}
 
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -188,18 +208,20 @@ func TestListNegativated(t *testing.T) {
 	store := mock_negativation.NewMockStore(ctrl)
 
 	// build stubs
-	//store.EXPECT().ListNegativated(gomock.Any(), rn).Times(1).Return(rnList, nil)
+	store.EXPECT().ListNegativated(gomock.Any(), gomock.Eq(rn)).Times(1).Return(rnList, nil)
 
 	// start test server and send request
 	server := factories.Negativations.NewServer(store)
 	recorder := httptest.NewRecorder()
 
-	url := fmt.Sprintf("/v2/list-negativated")
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	pagination, err := json.Marshal(rn)
+	require.NoError(t, err)
+	url := fmt.Sprintf("/v2/negativated?page_number=%d&page_size=%d", pageID, pageSize)
+	req, err := http.NewRequest(http.MethodGet, url, bytes.NewBuffer(pagination))
 	require.NoError(t, err)
 
 	server.Router.ServeHTTP(recorder, req)
 
 	// check response
-	//require.Equal(t, http.StatusOK, recorder.Code)
+	require.Equal(t, http.StatusOK, recorder.Code)
 }

@@ -17,7 +17,7 @@ curl --request POST \
 }'
 
 curl --request PUT \
-  --url http://localhost:8008/v2/update-negativated \
+  --url http://localhost:8008/v2/negativated \
   --header 'Content-Type: application/json' \
   --data '{
 	"id": 139,
@@ -31,7 +31,7 @@ curl --request PUT \
 }'
 
 curl --request GET \
-  --url 'http://localhost:8008/v2/list-negativated?page_number=1&page_size=5' \
+  --url 'http://localhost:8008/v2/negativated?page_number=1&page_size=5' \
   --header 'Content-Type: application/x-www-form-urlencoded' \
   --data =
 
@@ -39,4 +39,4 @@ curl --request GET \
   --url http://localhost:8008/v2/negativated/139
 
 curl --request DELETE \
-  --url http://localhost:8008/v2/delete-negativated/139
+  --url http://localhost:8008/v2/negativated/139

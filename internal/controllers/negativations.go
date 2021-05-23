@@ -209,7 +209,7 @@ type updateNegativated struct {
 	Value            float64   `json:"value" binding:"required"`
 	Contract         string    `json:"contract" binding:"required"`
 	DebtDate         time.Time `json:"debtDate" binding:"required"`
-	InclusionDate    time.Time `json:"inclusionDate"`
+	InclusionDate    time.Time `json:"inclusionDate" binding:"required"`
 }
 
 // UpdateNegativated godoc
@@ -248,5 +248,5 @@ func (handler *sNegativationHandlers) UpdateNegativated(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, updatedNegativation)
+	ctx.JSON(http.StatusCreated, updatedNegativation)
 }
